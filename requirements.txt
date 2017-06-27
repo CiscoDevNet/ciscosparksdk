@@ -1,0 +1,9 @@
+-e .
+versioneer
+Sphinx
+sphinx-rtd-theme
+pytest
+tox
+virtualenv
+flake8
+twine
