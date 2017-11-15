@@ -64,6 +64,7 @@ setup(
     ],
 
     install_requires=[
-            'future',
+        'future',
+        'ciscosparkapi',
     ],
 )
