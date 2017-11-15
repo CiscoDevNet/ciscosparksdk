@@ -23,6 +23,9 @@ from past.builtins import basestring
 
 class CiscoSparkSdkException(Exception):
     """Base class for all ciscosparksdk package exceptions."""
+    pass
 
-    def __init__(self, *args, **kwargs):
-        super(CiscoSparkSdkException, self).__init__(*args, **kwargs)
+
+class AccessTokenError(CiscoSparkSdkException):
+    """Raised when an invalid access token has been provided."""
+    pass

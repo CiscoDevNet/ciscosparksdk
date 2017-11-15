@@ -20,12 +20,11 @@ __license__ = "MIT"
 from builtins import *
 from past.builtins import basestring
 
-from ciscosparksdk.exceptions import CiscoSparkSdkException
+from .exceptions import AccessTokenError, CiscoSparkSdkException
 
+from .sparkclient import SparkClient
 
 # Versioneer version control
 from ._version import get_versions
 __version__ = get_versions()['version']
 del get_versions
-
-
