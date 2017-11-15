@@ -9,10 +9,18 @@ from __future__ import (
     print_function,
     unicode_literals,
 )
+
+
+__author__ = "Chris Lunsford"
+__author_email__ = "chrlunsf@cisco.com"
+__copyright__ = "Copyright (c) 2017 Cisco Systems, Inc."
+__license__ = "MIT"
+
+
 from builtins import *
 from past.builtins import basestring
 
-from ciscosparksdk.exceptions import ciscosparksdkException
+from ciscosparksdk.exceptions import CiscoSparkSdkException
 
 
 # Versioneer version control
@@ -21,8 +29,3 @@ __version__ = get_versions()['version']
 del get_versions
 
 
-# Metadata, license and copyright
-__author__ = "Chris Lunsford"
-__author_email__ = "chrlunsf@cisco.com"
-__copyright__ = "Copyright (c) 2017 Cisco Systems, Inc."
-__license__ = "MIT"

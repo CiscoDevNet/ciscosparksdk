@@ -9,12 +9,13 @@ from __future__ import (
     print_function,
     unicode_literals,
 )
-from builtins import *
-from past.builtins import basestring
 
 
-# Metadata, license and copyright
 __author__ = "Chris Lunsford"
 __author_email__ = "chrlunsf@cisco.com"
 __copyright__ = "Copyright (c) 2017 Cisco Systems, Inc."
 __license__ = "MIT"
+
+
+from builtins import *
+from past.builtins import basestring
