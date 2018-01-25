@@ -1,10 +1,11 @@
-# `local` working directory
+# Local Files
+.envrc
 local/
 
 
-# Test artifacts
-.cache/
-.tox/
+# Virtual Environments
+.venv/
+venv/
 
 
 # Byte-compiled / optimized files
@@ -15,3 +16,8 @@ local/
 dist/
 docs/_build/
 *.egg-info/
+
+
+# Test artifacts
+.cache/
+.tox/

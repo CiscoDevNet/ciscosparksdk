@@ -2,127 +2,64 @@
 ciscosparksdk
 =============
 
-*Batteries added, community developed Python SDK for Cisco Spark*
+*Community-Developed Python SDK for Cisco Spark*
+
+
+.. image:: https://img.shields.io/badge/license-MIT-blue.svg
+    :target: https://github.com/CiscoDevNet/ciscosparkapi/blob/master/LICENSE
 
 .. image:: https://img.shields.io/pypi/v/ciscosparksdk.svg
-    :target: https://pypi.python.org/pypi/ciscosparksdk
+        :target: https://pypi.python.org/pypi/ciscosparksdk
+
+.. image:: https://img.shields.io/travis/cmlccie/ciscosparksdk.svg
+        :target: https://travis-ci.org/cmlccie/ciscosparksdk
+
 .. image:: https://readthedocs.org/projects/ciscosparksdk/badge/?version=latest
-    :target: http://ciscosparksdk.readthedocs.io/en/latest/?badge=latest
+        :target: https://ciscosparksdk.readthedocs.io/en/latest/?badge=latest
+        :alt: Documentation Status
+
+.. image:: https://pyup.io/repos/github/cmlccie/ciscosparksdk/shield.svg
+     :target: https://pyup.io/repos/github/cmlccie/ciscosparksdk/
+     :alt: Updates
 
 -------------------------------------------------------------------------------
-
-**ciscosparksdk** is a *community developed* Python Software Development Kit
-for working with the `Cisco Spark`_ cloud collaboration platform.  It extends
-the capabilities of the `ciscosparkapi`_ API wrapper to include additional
-tools and methods that make working with Cisco Spark via Python even more
-enjoyable!
-
-
-Project & Package Status
-------------------------
-
-**Alpha!**  Tread lightly.  😃
-
-This project is currently under initial alpha-level development.  Expect the
-package APIs to change.  Expect bugs.  Help us squash them and add features!
-
 
 Features
 --------
 
-ciscosparksdk enhances your developer experience by providing:
+* CiscoSparkClient ~ Currently Under Development
+* Tools ~ Current Under Development
+* CiscoSparkBot - Next on the Roadmap
 
-+ Convenience objects and methods that make interacting with Cisco Spark a
-  python-native and natural experience.  For example:
 
-  + Access your Spark rooms using builtin "rooms list" convenience objects.
+Project Status
+--------------
 
-  + Instead of having to locate and pass around object IDs, like when you want
-    to create a message in room and you have to find and then provide the
-    room's ID to the create-message API, why not just have a ``create_message``
-    convenience method available underneath your room object so you can simply
-    say ``room.create_message()`` or ``room.add_person()``?  We do that.  😎
-
-+ We also provide a community framework for capturing and contributing
-  solutions to common needs that often arise when working with Cisco Spark.
-
-Community Development
----------------------
-
-Want to find a room by name?  Why should all of us write the same functions
-over and over again?  Let's do it once, iterate the solutions if they can be
-improved, and save all of us time and effort while contributing and increasing
-the quality of the code we all use.
-
-Installation
-------------
-
-Installing and upgrading ciscosparksdk is easy:
-
-**Install via PIP**
-
-.. code-block:: bash
-
-    $ pip install ciscosparksdk
-
-**Upgrading to the latest Version**
-
-.. code-block:: bash
-
-    $ pip install ciscosparksdk --upgrade
+**Alpha**; Tread Lightly
 
 
 Documentation
 -------------
 
-User documentation is being built simultaneously alongside the development of
-the ciscosparksdk package.  Check it out at http://ciscosparksdk.readthedocs.io .
-
-Your feedback and contributions to the documentation are also most welcome!
+Coming soon to https://ciscosparksdk.readthedocs.io.
 
 
-Examples
---------
-
-We are going to need some... 🙂  Have a good example script you would like to
-share?  Your `contribution`__ is most welcome!
-
-__ Contribution_
-
-
-Release Notes
+Contributions
 -------------
 
-Please see the releases_ page for release notes on the incremental
-functionality and bug fixes incorporated into the published releases.
-
-**Note:**  The package APIs may change, while the package is in under
-development.
+Always welcome!  Please read the community `CODE_OF_CONDUCT.rst`_ and then
+check-out `CONTRIBUTING.rst`_ for instructions on how to contribute.
 
 
-Support
--------
+Credits
+---------
 
-This is a *community developed* and *community supported* project.  If you
-experience any issues using this package, please report them using the
-issues_ log.
-
-
-Contribution & Community Code of Conduct
-----------------------------------------
-
-Please the the `CONTRIBUTING`_ and `CODE_OF_CONDUCT`_ files for information on
-how to contribute to this project and our expectations-of and commitment-to
-open and professional conduct in the community surrounding this project.
+This package was updated with the awesome collection project starters avaiable
+via the Cookiecutter_ tool and the `audreyr/cookiecutter-pypackage`_
+project template.
 
 
-*Copyright (c) 2017 Cisco Systems, Inc.*
-
-.. _Cisco Spark: https://ciscospark.com
-.. _ciscosparkapi: https://github.com/CiscoDevNet/ciscosparksdk
-.. _ciscosparksdk: https://github.com/CiscoDevNet/ciscosparksdk
-.. _ciscosparksdk.readthedocs.io: https://ciscosparksdk.readthedocs.io
-.. _issues: https://github.com/CiscoDevNet/ciscosparksdk/issues
-.. _releases: https://github.com/CiscoDevNet/ciscosparksdk/releases
-.. _CONTRIBUTING: https://github.com/CiscoDevNet/ciscosparksdk/tree/master/CONTRIBUTING.rst
-.. _CODE_OF_CONDUCT: https://github.com/CiscoDevNet/ciscosparksdk/tree/master/CODE_OF_CONDUCT.md
+.. _CODE_OF_CONDUCT.rst: https://github.com/CiscoDevNet/ciscosparksdk/blob/master/CODE_OF_CONDUCT.rst
+.. _CONTRIBUTING.rst: https://github.com/CiscoDevNet/ciscosparksdk/blob/master/CONTRIBUTING.rst
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage

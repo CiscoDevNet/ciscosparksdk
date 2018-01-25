@@ -1,64 +1,51 @@
-.. _Installation:
+.. highlight:: shell
 
 ============
 Installation
 ============
 
 
-.. _Install:
+Stable release
+--------------
 
-PIP Install
------------
+To install ciscosparksdk, run this command in your terminal:
 
-ciscosparksdk is available via PIP and the `Python Package Index (PyPI)`_.  To
-install ciscosparksdk, simply run this command from your terminal of choice:
-
-.. code-block:: bash
+.. code-block:: console
 
     $ pip install ciscosparksdk
 
-The ciscosparksdk package is distributed as a *source distribution* (no
-binaries).
+This is the preferred method to install ciscosparksdk, as it will always install the most recent stable release. 
+
+If you don't have `pip`_ installed, this `Python installation guide`_ can guide
+you through the process.
+
+.. _pip: https://pip.pypa.io
+.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
 
 
-.. _Upgrade:
+From sources
+------------
 
-PIP Upgrade
------------
+The sources for ciscosparksdk can be downloaded from the `Github repo`_.
 
-To ensure that you have the latest version, check-for and install upgrades via
-PIP:
+You can either clone the public repository:
 
-.. code-block:: bash
+.. code-block:: console
 
-    $ pip install ciscosparksdk --upgrade
+    $ git clone git://github.com/cmlccie/ciscosparksdk
 
+Or download the `tarball`_:
 
-.. _Source Code:
+.. code-block:: console
 
-Get the Source Code
--------------------
+    $ curl  -OL https://github.com/cmlccie/ciscosparksdk/tarball/master
 
-ciscosparksdk is developed on GitHub.  If you like and use this package,
-please take a few seconds to Star the package on
-the `CiscoDevNet/ciscosparksdk`_ GitHub page.  Your feedback and
-contributions are always welcome.
+Once you have a copy of the source, you can install it with:
 
-Use the following command to download the source code (GIT repository):
-
-.. code-block:: bash
-
-    $ git clone https://github.com/CiscoDevNet/ciscosparksdk.git
-
-You can then install the package to your environment, with the following
-command:
-
-.. code-block:: bash
+.. code-block:: console
 
     $ python setup.py install
 
 
-*Copyright (c) 2017 Cisco Systems, Inc.*
-
-.. _Python Package Index (PyPI): https://pypi.python.org/pypi/ciscosparksdk
-.. _CiscoDevNet/ciscosparksdk: https://github.com/CiscoDevNet/ciscosparksdk
+.. _Github repo: https://github.com/cmlccie/ciscosparksdk
+.. _tarball: https://github.com/cmlccie/ciscosparksdk/tarball/master

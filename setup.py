@@ -1,51 +1,84 @@
 # -*- coding: utf-8 -*-
-"""A setuptools based setup module."""
+"""The setup script."""
 
 
-from codecs import open
-from os import path
-from setuptools import setup
+from __future__ import (
+    absolute_import,
+    division,
+    print_function,
+    unicode_literals,
+)
+from builtins import *
+
+
+__copyright__ = "Copyright (c) 2016-2018 Cisco and/or its affiliates."
+__license__ = "MIT"
+
+
+import os
+from setuptools import setup, find_packages
 
 import versioneer
 
 
-# Metadata, license and copyright
-__author__ = "Chris Lunsford"
-__author_email__ = "chrlunsf@cisco.com"
-__copyright__ = "Copyright (c) 2017 Cisco Systems, Inc."
-__license__ = "MIT"
+project_root = os.path.abspath(os.path.dirname(__file__))
 
 
-# Get the long description from the README file
-current_path = path.abspath(path.dirname(__file__))
-with open(path.join(current_path, 'README.rst'), encoding='utf-8') as f:
-    long_description = f.read()
+metadata = {}
+with open(os.path.join(project_root, 'ciscosparksdk', '_metadata.py')) as f:
+    exec(f.read(), metadata)
+
+
+with open('README.rst') as readme_file:
+    readme = readme_file.read()
+
+
+requirements = [
+    'future',
+    'ciscosparkapi',
+]
+
+
+setup_requirements = [
+    'pytest-runner',
+]
+
+
+test_requirements = [
+    'pytest',
+]
 
 
 setup(
-    name='ciscosparksdk',
+    name=metadata['__title__'],
+    description=metadata['__description__'],
+    long_description=readme,
+    url=metadata['__url__'],
+    license=metadata['__license__']+"; "+metadata['__copyright__'],
+    author=metadata['__author__'],
+    author_email=metadata['__author_email__'],
 
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
 
-    description='Simple, lightweight, scalable Python API wrapper for the '
-                'Cisco Spark APIs',
-    long_description=long_description,
+    packages=find_packages(include=['ciscosparksdk', 'ciscosparksdk.*']),
 
-    url='https://github.com/CiscoDevNet/ciscosparksdk',
-    download_url="https://pypi.python.org/pypi/ciscosparksdk",
+    include_package_data=True,
 
-    author=__author__,
-    author_email=__author_email__,
+    zip_safe=False,
 
-    license=__license__+"; "+__copyright__,
+    install_requires=requirements,
+    setup_requires=setup_requirements,
+    tests_require=test_requirements,
 
+    test_suite='tests',
+
+    keywords='cisco spark api enterprise messaging',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
         'Intended Audience :: Telecommunications Industry',
-        'Intended Audience :: Education',
         'Natural Language :: English',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2',
@@ -55,15 +88,5 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Topic :: Communications',
         'Topic :: Communications :: Chat'
-    ],
-
-    keywords='cisco spark api sdk enterprise messaging',
-
-    packages=[
-            'ciscosparksdk',
-    ],
-
-    install_requires=[
-            'future',
     ],
 )

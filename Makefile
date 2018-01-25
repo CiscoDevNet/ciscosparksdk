@@ -1,84 +1,107 @@
 SHELL=/bin/bash
-
-# Build recipes
-.PHONY : build
-build : tests docs buildpackage
-	$(MAKE) clean
-
-.PHONY : buildpackage
-buildpackage : setup.py
-	python setup.py sdist
-
-.PHONY : docs
-docs : docs/Makefile
-	cd docs/ && $(MAKE) html
+.PHONY: help init update freeze clean clean-build clean-pyc clean-test lint test test-all coverage docs servedocs dist release
+.DEFAULT_GOAL := help
 
 
-# Local project directory and environment management recipes
-.PHONY : init
-init : requirements.txt
-	pip install -r requirements.txt
 
-.PHONY : update
-update : clean-venv init versioneer.py
-	rm versioneer.py
-	versioneer install
+define BROWSER_PYSCRIPT
+import os, webbrowser, sys
+try:
+	from urllib import pathname2url
+except:
+	from urllib.request import pathname2url
+
+webbrowser.open("file://" + pathname2url(os.path.abspath(sys.argv[1])))
+endef
+export BROWSER_PYSCRIPT
+
+define PRINT_HELP_PYSCRIPT
+import re, sys
+
+for line in sys.stdin:
+	match = re.match(r'^([a-zA-Z_-]+):.*?## (.*)$$', line)
+	if match:
+		target, help = match.groups()
+		print("%-20s %s" % (target, help))
+endef
+export PRINT_HELP_PYSCRIPT
+BROWSER := python -c "$$BROWSER_PYSCRIPT"
+
+help:
+	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 
-# Local testing recipes
-.PHONY : tests
-tests: toxtest lint ;
 
-.PHONY : toxtest
-toxtest : local/environment.sh tox.ini
-	source local/environment.sh
+init: Pipfile
+	pipenv install --dev --skip-lock
+
+update: Pipfile
+	pipenv update --dev
+	pipenv run versioneer install
+
+freeze: Pipfile
+	pipenv lock -r > requirements-secure.txt
+	pipenv lock -r --dev > requirements-secure-dev.txt
+	pipenv run pip freeze > requirements.txt
+
+
+
+clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
+
+clean-build: ## remove build artifacts
+	rm -fr build/
+	rm -fr dist/
+	rm -fr .eggs/
+	find . -name '*.egg-info' -exec rm -fr {} +
+	find . -name '*.egg' -exec rm -f {} +
+
+clean-pyc: ## remove Python file artifacts
+	find . -name '*.pyc' -exec rm -f {} +
+	find . -name '*.pyo' -exec rm -f {} +
+	find . -name '*~' -exec rm -f {} +
+	find . -name '__pycache__' -exec rm -fr {} +
+
+clean-test: ## remove test and coverage artifacts
+	rm -fr .tox/
+	rm -f .coverage
+	rm -fr htmlcov/
+
+
+
+lint: ## check style with flake8
+	flake8 ciscosparksdk tests
+
+test: ## run tests quickly with the default Python
+	py.test
+	
+
+test-all: ## run tests on every Python version with tox
 	tox
 
-.PHONY : pytest
-pytest : local/environment.sh
-	source local/environment.sh
-	pytest
-
-.PHONY : lint
-lint :
-	flake8 ciscosparksdk
+coverage: ## check code coverage quickly with the default Python
+	coverage run --source ciscosparksdk -m pytest
+	coverage report -m
+	coverage html
+	$(BROWSER) htmlcov/index.html
 
 
-# Git recipes
-.PHONY : push
-push :
-	git push origin
-	git push origin --tags
+
+docs: ## generate Sphinx HTML documentation, including API docs
+	rm -f docs/ciscosparksdk.rst
+	rm -f docs/modules.rst
+	sphinx-apidoc -o docs/ ciscosparksdk
+	$(MAKE) -C docs clean
+	$(MAKE) -C docs html
+	$(BROWSER) docs/_build/html/index.html
+
+servedocs: docs ## compile the docs watching for changes
+	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
 
-# Cleaning recipes
-.PHONY : clean
-clean : cleanbuild cleandocs cleanpytest cleantox ;
 
-.PHONY : cleanbuild
-cleanbuild :
-	rm -rf ./ciscosparksdk.egg-info/
-	rm -rf ./__pycache__/
+dist: clean ## builds source distribution package
+	python setup.py sdist
+	ls -l dist
 
-.PHONY : cleandocs
-cleandocs :
-	rm -rf ./docs/_build/*
-
-.PHONY : cleantox
-cleantox : cleanpytest
-	rm -rf ./.tox/
-
-.PHONY : cleanpytest
-cleanpytest :
-	rm -rf ./.cache/
-
-.PHONY : clean-all
-clean-all : clean clean-dist ;
-
-.PHONY : clean-dist
-clean-dist :
-	rm -rf ./dist/*
-
-.PHONY : clean-venv
-clean-venv :
-	pip freeze | grep -v "^-e" | xargs pip uninstall -y
+release: clean ## package and upload a release
+	python setup.py sdist upload

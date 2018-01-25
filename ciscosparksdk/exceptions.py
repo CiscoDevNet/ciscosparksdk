@@ -1,28 +1,20 @@
 # -*- coding: utf-8 -*-
-"""ciscosparksdk exception classes."""
+"""Package Exceptions."""
 
 
-# Use future for Python v2 and v3 compatibility
 from __future__ import (
     absolute_import,
     division,
     print_function,
     unicode_literals,
 )
-
-
-__author__ = "Chris Lunsford"
-__author_email__ = "chrlunsf@cisco.com"
-__copyright__ = "Copyright (c) 2017 Cisco Systems, Inc."
-__license__ = "MIT"
-
-
 from builtins import *
-from past.builtins import basestring
+
+
+__copyright__ = "Copyright (c) 2016-2018 Cisco and/or its affiliates."
+__license__ = "MIT"
 
 
 class CiscoSparkSdkException(Exception):
     """Base class for all ciscosparksdk package exceptions."""
-
-    def __init__(self, *args, **kwargs):
-        super(CiscoSparkSdkException, self).__init__(*args, **kwargs)
+    pass
