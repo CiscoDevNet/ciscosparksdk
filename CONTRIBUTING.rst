@@ -68,7 +68,7 @@ development.
     $ git clone git@github.com:your_name_here/ciscosparksdk.git
 
 3. Initialize your local environment. Assuming you `pipenv` installed, this is
-how you set up your local development environment::
+   how you set up your local development environment::
 
     $ make init
 
