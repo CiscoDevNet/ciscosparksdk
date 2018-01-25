@@ -103,5 +103,5 @@ dist: clean ## builds source distribution package
 	python setup.py sdist
 	ls -l dist
 
-release: clean ## package and upload a release
-	python setup.py sdist upload
+release: dist ## package and upload a release
+	twine upload dist/*
