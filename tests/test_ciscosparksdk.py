@@ -1,25 +1,13 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""Tests for the `ciscosparksdk` main package interface."""
 
-"""Tests for `ciscosparksdk` package."""
 
 import pytest
 
-
-from ciscosparksdk import ciscosparksdk
-
-
-@pytest.fixture
-def response():
-    """Sample pytest fixture.
-
-    See more at: http://doc.pytest.org/en/latest/fixture.html
-    """
-    # import requests
-    # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
+from .context import ciscosparksdk
 
 
-def test_content(response):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
+# Fixtures
+
+
+# Tests

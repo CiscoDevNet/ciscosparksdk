@@ -5,4 +5,6 @@
 import pytest
 
 
-pytest_plugins = []
+pytest_plugins = [
+    'tests.test_ciscosparkclient',
+]
