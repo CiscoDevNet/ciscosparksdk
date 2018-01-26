@@ -14,3 +14,6 @@ from past.builtins import basestring
 
 __copyright__ = "Copyright (c) 2016-2018 Cisco and/or its affiliates."
 __license__ = "MIT"
+
+
+from ciscosparkapi.utils import check_type

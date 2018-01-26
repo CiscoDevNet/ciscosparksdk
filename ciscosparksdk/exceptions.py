@@ -18,3 +18,8 @@ __license__ = "MIT"
 class CiscoSparkSdkException(Exception):
     """Base class for all ciscosparksdk package exceptions."""
     pass
+
+
+class AccessTokenError(CiscoSparkSdkException):
+    """Raised when an incorrect Cisco Spark Access Token has been provided."""
+    pass

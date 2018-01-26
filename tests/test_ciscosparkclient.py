@@ -5,6 +5,7 @@
 import os
 import random
 
+import ciscosparkapi
 import pytest
 
 from .context import ciscosparksdk
@@ -53,6 +54,10 @@ def test_not_providing_an_access_token_raises_an_error(unset_access_token):
         ciscosparksdk.CiscoSparkClient()
 
 
+def test_access_token_property(client):
+    """The access token in use should be accessible as a client property."""
+    assert client.access_token
+
 def test_default_base_url(client):
     """The client should use the package default."""
     assert client.base_url == ciscosparksdk.DEFAULT_BASE_URL
@@ -96,3 +101,8 @@ def test_non_default_wait_on_rate_limit():
     )
     assert client.wait_on_rate_limit != \
            ciscosparksdk.DEFAULT_WAIT_ON_RATE_LIMIT
+
+
+def test_client_exposes_ciscosparkapi_object(client):
+    """The client should expose the initialized CiscoSparkAPI object."""
+    assert isinstance(client.api, ciscosparkapi.CiscoSparkAPI)
