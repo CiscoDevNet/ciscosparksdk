@@ -28,6 +28,7 @@ from ciscosparkapi import (
 
 from ..exceptions import AccessTokenError
 from ..utils import check_type
+from .rooms import Rooms
 
 
 class CiscoSparkClient(object):
@@ -93,6 +94,8 @@ class CiscoSparkClient(object):
             single_request_timeout=single_request_timeout,
             wait_on_rate_limit=wait_on_rate_limit,
         )
+
+        self.rooms = Rooms(client=self)
 
     @property
     def access_token(self):
