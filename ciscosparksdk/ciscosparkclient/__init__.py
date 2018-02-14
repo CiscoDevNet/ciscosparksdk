@@ -28,7 +28,12 @@ from ciscosparkapi import (
 
 from ..exceptions import AccessTokenError
 from ..utils import check_type
+from .licenses import Licenses
+from .organizations import Organizations
+from .people import People
 from .rooms import Rooms
+from .teams import Teams
+from .webhooks import Webhooks
 
 
 class CiscoSparkClient(object):
@@ -95,7 +100,12 @@ class CiscoSparkClient(object):
             wait_on_rate_limit=wait_on_rate_limit,
         )
 
+        self.licenses = Licenses(client=self)
+        self.organizations = Organizations(client=self)
+        self.people = People(client=self)
         self.rooms = Rooms(client=self)
+        self.teams = Teams(client=self)
+        self.webhooks = Webhooks(client=self)
 
     @property
     def access_token(self):
