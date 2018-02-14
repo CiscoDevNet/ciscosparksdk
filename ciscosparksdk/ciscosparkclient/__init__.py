@@ -79,11 +79,6 @@ class CiscoSparkClient(object):
                 variable.
 
         """
-        check_type(access_token, basestring)
-        check_type(base_url, basestring)
-        check_type(single_request_timeout, int)
-        check_type(wait_on_rate_limit, bool)
-
         env_access_token = os.environ.get(ACCESS_TOKEN_ENVIRONMENT_VARIABLE)
         access_token = access_token or env_access_token
         if not access_token:
