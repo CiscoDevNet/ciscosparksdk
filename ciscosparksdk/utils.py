@@ -18,7 +18,7 @@ __license__ = "MIT"
 
 import re
 
-from ciscosparkapi.utils import check_type
+from ciscosparkapi.utils import check_type, dict_from_items_with_values
 from ciscosparkapi.generator_containers import (
     GeneratorContainer,
     generator_container,
