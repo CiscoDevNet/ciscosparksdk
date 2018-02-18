@@ -20,7 +20,7 @@ import weakref
 
 import ciscosparkapi
 
-from ...utils import check_type
+from ...utils import check_type, SparkDateTime
 from .person import Person
 
 
@@ -69,6 +69,18 @@ class Room(ciscosparkapi.Room):
 
         """
         self._client.api.rooms.delete(roomId=self.id)
+
+    # Enhanced Properties
+    @property
+    def lastActivity(self):
+        """The date and time when the room was last active."""
+        return SparkDateTime.strptime(super(Room, self).lastActivity())
+
+    @property
+    def created(self):
+        """The date and time the message was created."""
+        return SparkDateTime.strptime(super(Room, self).created())
+
 
     # Memberships
     @property

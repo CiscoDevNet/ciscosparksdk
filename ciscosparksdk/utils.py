@@ -16,6 +16,7 @@ __copyright__ = "Copyright (c) 2016-2018 Cisco and/or its affiliates."
 __license__ = "MIT"
 
 
+from datetime import datetime, timedelta, tzinfo
 import re
 
 from ciscosparkapi.utils import check_type, dict_from_items_with_values
@@ -23,6 +24,9 @@ from ciscosparkapi.generator_containers import (
     GeneratorContainer,
     generator_container,
 )
+
+
+SPARK_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
 
 
 @generator_container
@@ -90,3 +94,41 @@ def filter_by_attribute(iterable, where, equals=None, starts_with=None,
 def first(iterable):
     """Return the first item from the iterable."""
     return next(iter(iterable), None)
+
+
+class ZuluTimeZone(tzinfo):
+    """Zulu Time Zone."""
+
+    def tzname(self, dt):
+        """Time Zone Name."""
+        return "Z"
+
+    def utcoffset(self, dt):
+        """UTC Offset."""
+        return timedelta(0)
+
+    def dst(self, dt):
+        """Daylight Savings Time Offset."""
+        return timedelta(0)
+
+
+class SparkDateTime(datetime):
+    """Cisco Spark formatted datetime."""
+
+    @classmethod
+    def strptime(cls, date_string, format=SPARK_DATETIME_FORMAT):
+        """strptime with the Spark DateTime format as the default."""
+        return super(SparkDateTime, cls).strptime(
+            date_string, format
+        ).replace(tzinfo=ZuluTimeZone())
+
+    def strftime(self, fmt=SPARK_DATETIME_FORMAT):
+        """strftime with the Spark DateTime format as the default."""
+        return super(SparkDateTime, self).strftime(fmt)
+
+    def __str__(self):
+        """Human readable string representation of this SparkDateTime."""
+        dt = self.astimezone(ZuluTimeZone())
+        return dt.strftime("%Y-%m-%dT%H:%M:%S.{:0=3}%Z").format(
+            self.microsecond // 1000
+        )

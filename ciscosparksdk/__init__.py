@@ -23,6 +23,7 @@ from .ciscosparkclient import (
     DEFAULT_WAIT_ON_RATE_LIMIT,
     CiscoSparkClient,
 )
+from .utils import SparkDateTime, ZuluTimeZone
 
 
 from ._metadata import *

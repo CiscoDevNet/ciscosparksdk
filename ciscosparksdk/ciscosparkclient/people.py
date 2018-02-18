@@ -16,11 +16,15 @@ __license__ = "MIT"
 
 
 import functools
+from itertools import islice
 import weakref
 
 import ciscosparkapi
 
 from ..utils import filter_by_attribute
+
+
+MAX_PEOPLE_IDS_PER_REQUEST = 85
 
 
 class People(object):
@@ -33,7 +37,7 @@ class People(object):
             client(CiscoSparkClient): The parent client object.
 
         """
-        self.client = weakref.proxy(client)
+        self._client = weakref.proxy(client)
 
     def __call__(self, where=None, equals=None, starts_with=None,
                  contains=None, ends_with=None, case_sensitive=True,
@@ -62,7 +66,7 @@ class People(object):
             TypeError: If the parameter types are incorrect.
 
         """
-        people = self.client.api.people.list(
+        people = self._client.api.people.list(
             **request_parameters
         )
         if where:
@@ -76,23 +80,42 @@ class People(object):
 
     def __iter__(self):
         """Default `people` iterable."""
-        return iter(self.client.api.people.list())
+        return iter(self._client.api.people.list())
 
     def __getitem__(self, item):
         """Make default `people` iterable subscriptable."""
-        return self.client.api.people.list()[item]
+        return self._client.api.people.list()[item]
 
     @property
     def me(self):
         """The details of the person accessing the API."""
-        return self.client.api.people.me()
+        return self._client.api.people.me()
 
     @functools.wraps(ciscosparkapi.api.people.PeopleAPI.create)
     def create(self, *args, **kwargs):
         """Expose the create() method."""
-        return self.client.api.people.create(*args, **kwargs)
+        return self._client.api.people.create(*args, **kwargs)
 
     @functools.wraps(ciscosparkapi.api.people.PeopleAPI.get)
     def get(self, *args, **kwargs):
         """Expose the get() method."""
-        return self.client.api.people.get(*args, **kwargs)
+        return self._client.api.people.get(*args, **kwargs)
+
+    def get_people(self, ids_iterable):
+        """Get the people objects for each of the IDs in the iterable.
+
+        Args:
+            ids_iterable(iterable): An iterable containing the person IDs of
+                the people objects to be retrieved.
+
+        Raises:
+            SparkApiError: If the Cisco Spark cloud returns an error.
+
+        """
+        # Get people objects in batches of size MAX_PEOPLE_IDS_PER_REQUEST
+        i = iter(ids_iterable)
+        batch = tuple(islice(i, stop=MAX_PEOPLE_IDS_PER_REQUEST))
+        while batch:
+            for person in self._client.people.get(id=",".join(batch)):
+                yield person
+            batch = tuple(islice(i, stop=MAX_PEOPLE_IDS_PER_REQUEST))

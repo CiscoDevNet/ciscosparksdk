@@ -20,7 +20,7 @@ import weakref
 
 import ciscosparkapi
 
-from ...utils import check_type, dict_from_items_with_values
+from ...utils import dict_from_items_with_values, SparkDateTime
 
 
 class Person(ciscosparkapi.Person):
@@ -97,8 +97,10 @@ class Person(ciscosparkapi.Person):
             SparkApiError: If the Cisco Spark cloud returns an error.
 
         """
-        self._client.api.memberships.list(
-            roomId=self.id, personId=personId, personEmail=personEmail,
-            **request_parameters
-        )
         self._client.api.people.delete(personId=self.id)
+
+    # Enhanced Properties
+    @property
+    def created(self):
+        """The date and time the message was created."""
+        return SparkDateTime.strptime(super(Person, self).created())
